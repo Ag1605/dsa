@@ -8,7 +8,7 @@ int findKthLargest(vector<int>& arr, int k) {
 }
 
 
-// nth element dont sort the array but it puts the kth largest element at the correct position
+// nth element dont sort the array but it puts the kth largest element at the correct position lol 
 
 
 
