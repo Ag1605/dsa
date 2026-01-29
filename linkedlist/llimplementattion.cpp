@@ -53,6 +53,44 @@ public:
         }
         cout << endl;
     }
+    /* first we iterate through the list to find the position then new node will point to the temp next
+    then temp->next=newNode; */
+    void insertAtPosition(int val, int position) {
+        if (position < 0) {
+            cout << "Invalid position" << endl;
+            return;
+        }
+        if (position == 0) {
+            insertAtBeginning(val);
+            return;
+        }
+        Node* temp=head;
+        for(int i=1;i<position;i++){
+            if(temp==NULL){
+                cout<<"Position out of bounds"<<endl;
+                return;
+            }
+            temp=temp->next;
+            Node* newNode=new Node(val);
+            newNode->next=temp->next;   
+            temp->next=newNode;
+
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    
 };
 int main() {
     List ll;
@@ -60,10 +98,9 @@ int main() {
     ll.insertAtBeginning(20);
     ll.insertAtBeginning(30);
     ll.insertAtEnd(40);
-    ll.display(); // Output: 30 20 10
-   /* myList.insertAtEnd(10);
-    myList.insertAtBeginning(5);
-    myList.insertAtEnd(15);
-    myList.display(); // Output: 5 10 15 */
+    ll.display(); 
+    ll.insertAtPosition(25, 2);
+    ll.display();
+   
     return 0;
 }
