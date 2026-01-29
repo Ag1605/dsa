@@ -78,12 +78,78 @@ public:
 
         }
     }
+   void displaylength() {
+        Node* temp = head;
+        int length = 0;
+        while (temp != NULL) {
+            length++;
+            temp = temp->next;
+        }
+        cout << "Length of the list: " << length << endl;
+    }
 
 
+ void popfront() {
+        if (head == NULL) {
+            cout << "List is empty" << endl;
+            return;
+        }
+        Node* temp = head;
+        head = head->next;
+        temp->next = NULL;  
+        delete temp;
+    }
 
+    void popback() {
+        if (head == NULL) {
+            cout << "List is empty" << endl;
+            return;
+        }
+        if (head->next == NULL) {
+            delete head;
+            head = tail = NULL;
+            return;
+        }
+        /*if we dont have a tail pointer,  then temp->next->next != NULL */
+        Node* temp = head;
+        while (temp->next != tail) {
+            temp = temp->next;
+        }
+        temp->next = NULL;
+        delete tail;
+        tail = temp;
+       
+    }                 
+    void iterativesearch(int key) {
+        Node* temp = head;
+        int index=0;
+        while (temp != NULL) {
+            if (temp->data == key) {
+                cout << "Element " << key << " found in the list at index " << index << endl;
 
+                return;
+            }
+            temp = temp->next;
+            index++;
+        }
+        cout << "Element " << key << " not found in the list." << endl;
+    }
 
+ void recursiveSearchHelper(Node* node, int key, int index) {
+        if (node == NULL) {
+            cout << "Element " << key << " not found in the list." << endl;
+            return;
+        }
+        if (node->data == key) {
+            cout << "Element " << key << " found in the list at index " << index << endl;
+            return;
+        }
+        recursiveSearchHelper(node->next, key, index + 1);
+    }
 
+    void recursiveSearch(int key) {
+        recursiveSearchHelper(head, key, 0);
+    }
 
 
 
@@ -100,7 +166,8 @@ int main() {
     ll.insertAtEnd(40);
     ll.display(); 
     ll.insertAtPosition(25, 2);
-    ll.display();
-   
+   ll.popback();
+    ll.displaylength();
+    ll.iterativesearch(25);
     return 0;
 }
