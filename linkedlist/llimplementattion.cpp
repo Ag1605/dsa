@@ -148,13 +148,69 @@ public:
         }
         head = prev;  
     }
+int getsize() {
+        int sz = 0;
+        Node* temp = head;
+        while (temp != NULL) {
+            sz++;
+            temp = temp->next;
+        }
+        return sz       ;
+    }
+
+void removeNthFromEnd(int n) {
+    if (head == nullptr) return;
+
+    int size = getsize();
+
+    // If head needs to be removed
+    if (n == size) {
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+        return;
+    }
+
+    Node* prev = head;
+    for (int i = 1; i < size - n; i++) {
+        prev = prev->next;
+    }
+
+    Node* todel = prev->next;
+    prev->next = todel->next;
+    delete todel;
+}
 
 
+    void removeNthFromFront(int n) {
+    if (head == nullptr) return;
 
+    int size = getsize();
 
+    // Invalid position
+    if (n > size || n <= 0) return;
 
+    // If head needs to be removed
+    if (n == 1) {
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+        return;
+    }
 
-};
+    Node* prev = head;
+
+    // Move to (n-1)th node
+    for (int i = 1; i < n - 1; i++) {
+        prev = prev->next;
+    }
+
+    Node* todel = prev->next;
+    prev->next = todel->next;
+    delete todel;
+}
+
+};          
 int main() {
     List ll;
     ll.insertAtBeginning(10);
