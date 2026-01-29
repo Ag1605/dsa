@@ -135,28 +135,25 @@ public:
         cout << "Element " << key << " not found in the list." << endl;
     }
 
- void recursiveSearchHelper(Node* node, int key, int index) {
-        if (node == NULL) {
-            cout << "Element " << key << " not found in the list." << endl;
-            return;
+ void reverse() {
+        Node* prev = NULL;
+        Node* current = head;
+        Node* next = NULL;
+        tail = head;  
+        while (current != NULL) {
+            next = current->next;  
+            current->next = prev;  
+            prev = current;        
+            current = next;       
         }
-        if (node->data == key) {
-            cout << "Element " << key << " found in the list at index " << index << endl;
-            return;
-        }
-        recursiveSearchHelper(node->next, key, index + 1);
+        head = prev;  
     }
 
-    void recursiveSearch(int key) {
-        recursiveSearchHelper(head, key, 0);
-    }
 
 
 
 
 
-
-    
 };
 int main() {
     List ll;
