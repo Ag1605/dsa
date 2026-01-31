@@ -222,5 +222,7 @@ int main() {
    ll.popback();
     ll.displaylength();
     ll.iterativesearch(25);
+    ll.reverse();
+    ll.display();
     return 0;
 }
