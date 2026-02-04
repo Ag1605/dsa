@@ -209,7 +209,7 @@ void removeNthFromEnd(int n) {
     prev->next = todel->next;
     delete todel;
 }
-/*chutiyaa dsa .....................................................mc*/
+/*chutiyaa dsa ...........................................................................mc*/
 };          
 int main() {
     List ll;
