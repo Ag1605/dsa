@@ -15,7 +15,7 @@ int findMissing(int arr[], int n) {
         xor2 ^= i;
     }
 
-    // Missing number
+    // Missing number ........
     return xor1 ^ xor2;
 }
 
