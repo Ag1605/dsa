@@ -3,7 +3,7 @@ using namespace std;
 
 int findMissing(int arr[], int n) {
     int xor1 = 0;   // XOR of array elements
-    int xor2 = 0;   // XOR of numbers from 1 to n+1
+    int xor2 = 0;   // XOR of numbers from 1 to n+1  a\
 
     // XOR all array elements
     for (int i = 0; i < n; i++) {
@@ -23,6 +23,7 @@ int main() {
     int arr[] = {3, 7, 1, 2, 8, 4, 5};
     int n = sizeof(arr) / sizeof(arr[0]);
 
-    cout << "Missing Element: " << findMissing(arr, n);
+     cout << "Missing Element: " << findMissing(arr, n);
+     cout << "Missing Element: " << findMissing(arr, n);
     return 0;
 }
