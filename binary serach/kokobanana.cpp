@@ -16,7 +16,7 @@ int minimumRateToEatBananas(vector<int>& piles, int h) {
 
         long long totalHours = 0;
 
-        // Calculate total hours needed at speed = mid
+        // Calculate total hours needed at speed = mid fff
         for (int bananas : piles)
             totalHours += (bananas + mid - 1) / mid;
 
