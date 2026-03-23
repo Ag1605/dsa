@@ -13,7 +13,7 @@ int main() {
     unordered_map<int, vector<int>> mpVec;
     unordered_map<int, pair<int,int>> mpPair;
     unordered_map<pair<int,int>, int, hashPair> mpCustom;
-
+int key,val;
     // INSERT
     mp["apple"] = 10;
     mp.insert({"banana", 20});
@@ -58,8 +58,8 @@ int main() {
         cout << it->first << " " << it->second << endl;
     }
 
-    for(auto &[key, val] : mp) {
-        cout << key << " " << val << endl;
+    for(const auto &p : mp) {
+        cout << p.first << " " << p.second << endl;
     }
 
     // SIZE
