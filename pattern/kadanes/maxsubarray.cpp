@@ -10,7 +10,7 @@ public:
         for(int i = 1; i < nums.size(); i++) {  // start from 1 (important fix)
             int v1 = best + nums[i];
             int v2 = nums[i];
-
+// for minimum change max to min and vice versa
             best = max(v1, v2);
             ans  = max(ans, best);
         }
