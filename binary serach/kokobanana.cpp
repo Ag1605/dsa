@@ -3,31 +3,44 @@
 #include <algorithm>
 using namespace std;
 
-int minimumRateToEatBananas(vector<int>& piles, int h) {
-    int low = 1;
-    int high = 0;
+class Solution {
+public:
 
-    // Find maximum pile 
-    for (int bananas : piles)
-        high = max(high, bananas);
+    long long thours(vector<int>& piles, int k) {
 
-    while (low <= high) {
-        int mid = low + (high - low) / 2;
+        long long hours = 0;
 
-        long long totalHours = 0;
+        for (int i = 0; i < piles.size(); i++) {
 
-        // Calculate total hours needed at speed = mid fff
-        for (int bananas : piles)
-            totalHours += (bananas + mid - 1) / mid;
+            hours += ((long long)piles[i] + k - 1) / k;
+        }
 
-        if (totalHours <= h)
-            high = mid - 1;
-        else
-            low = mid + 1;
+        return hours;
     }
 
-    return low;
-}
+    int minEatingSpeed(vector<int>& piles, int h) {
+
+        int low = 1;
+
+        int high = *max_element(piles.begin(), piles.end());
+
+        while (low <= high) {
+
+            int mid = low + (high - low) / 2;
+
+            if (thours(piles, mid) <= h) {
+
+                high = mid - 1;
+            }
+            else {
+
+                low = mid + 1;
+            }
+        }
+
+        return low;
+    }
+};
 
 int main() {
     vector<int> piles = {7, 15, 6, 3};
