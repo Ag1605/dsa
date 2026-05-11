@@ -46,7 +46,8 @@ int main() {
     vector<int> piles = {7, 15, 6, 3};
     int h = 8;
 
-    int result = minimumRateToEatBananas(piles, h);
+    Solution solution;
+    int result = solution.minEatingSpeed(piles, h);
 
     cout << "Minimum eating speed: " << result << endl;
 
