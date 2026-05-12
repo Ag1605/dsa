@@ -5,7 +5,7 @@ using namespace std;
 
 class Solution {
 public:
-
+//hhahahahhahah babbababbababnannananannannannananannananna hahhahahhahahah
     long long thours(vector<int>& piles, int k) {
 
         long long hours = 0;
