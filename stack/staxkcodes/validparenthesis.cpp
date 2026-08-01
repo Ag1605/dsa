@@ -4,63 +4,113 @@ using namespace std;
 class Solution
 {
 public:
+    // Function to check whether the parentheses are valid
     bool isValid(string s)
     {
+        //------------------------------------------------------
+        // Stack stores opening brackets.
+        //
+        // Whenever we get a closing bracket,
+        // we check whether it matches the top opening bracket.
+        //------------------------------------------------------
 
         stack<char> st;
 
-        // Traverse each character
+        //------------------------------------------------------
+        // Traverse every character of the string
+        //------------------------------------------------------
+
         for (char ch : s)
         {
 
-            // If opening bracket, push into stack
+            //--------------------------------------------------
+            // Case 1 : Opening Bracket
+            //
+            // Simply push it into the stack.
+            //--------------------------------------------------
+
             if (ch == '(' || ch == '{' || ch == '[')
             {
                 st.push(ch);
             }
 
-            // If closing bracket
+            //--------------------------------------------------
+            // Case 2 : Closing Bracket
+            //--------------------------------------------------
+
             else
             {
 
-                // No matching opening bracket
+                //------------------------------------------------
+                // If stack is empty,
+                // there is no opening bracket available.
+                //
+                // Example:
+                // ")("
+                //------------------------------------------------
+
                 if (st.empty())
                     return false;
 
-                // Check if brackets match
+                //------------------------------------------------
+                // Check whether current closing bracket
+                // matches the opening bracket
+                // present at the top of the stack.
+                //------------------------------------------------
+
                 if ((ch == ')' && st.top() == '(') ||
                     (ch == ']' && st.top() == '[') ||
                     (ch == '}' && st.top() == '{'))
                 {
 
-                    // Matching bracket found
+                    //--------------------------------------------
+                    // Correct pair found.
+                    // Remove opening bracket from stack.
+                    //--------------------------------------------
+
                     st.pop();
                 }
                 else
                 {
-                    // Mismatched bracket
+
+                    //--------------------------------------------
+                    // Wrong opening bracket.
+                    //
+                    // Example:
+                    // "(]"
+                    //--------------------------------------------
+
                     return false;
                 }
             }
         }
 
-        // If stack is empty, all brackets matched
+        //------------------------------------------------------
+        // If stack is empty,
+        // every opening bracket found its partner.
+        //
+        // Otherwise some opening brackets
+        // are still unmatched.
+        //------------------------------------------------------
+
         return st.empty();
     }
 };
 
 int main()
 {
-
     Solution obj;
 
     string s;
+
+    cout << "Enter Parentheses String : ";
+
     cin >> s;
 
     if (obj.isValid(s))
-        cout << "true";
+        cout << "\nValid Parentheses";
     else
-        cout << "false";
+        cout << "\nInvalid Parentheses";
 
     return 0;
 }
