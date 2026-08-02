@@ -90,7 +90,7 @@ public:
         // every opening bracket found its partner.
         //
         // Otherwise some opening brackets
-        // are still unmatched.
+        // are still unmatched.gh
         //------------------------------------------------------
 
         return st.empty();
