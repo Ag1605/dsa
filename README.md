@@ -1,4 +1,3 @@
 agr manzil nhi mili sidhe raste se 
-money laundring 
-old business selling 
+toh purane game mein chl denge bc dsa
 erttttttttt
