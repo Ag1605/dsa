@@ -8,12 +8,14 @@ int minMeetingRooms(vector<vector<int>> &intervals)
         return 0;
 
     // ---------------------------------------------------------
-    // STEP 1: Sort meetings according to their start time.
+    // STEP 1: Sort meetings according to start time.
     //
     // Example:
-    // [5,10], [0,30], [15,20]
+    //
+    // [15,20], [0,30], [5,10]
     //
     // becomes:
+    //
     // [0,30], [5,10], [15,20]
     // ---------------------------------------------------------
     sort(intervals.begin(), intervals.end());
@@ -21,44 +23,39 @@ int minMeetingRooms(vector<vector<int>> &intervals)
     // ---------------------------------------------------------
     // Min Heap
     //
-    // It stores the END TIME of every meeting that is
-    // currently using a room.
+    // Stores END TIME of meetings currently using rooms.
     //
-    // The smallest end time will always be at the top.
+    // The smallest ending time is always at the top.
     //
     // Example:
     //
-    // heap = [10, 20, 30]
+    // heap = [10,20,30]
     //          ↑
     //       earliest
     // ---------------------------------------------------------
     priority_queue<int, vector<int>, greater<int>> minHeap;
 
-    // Stores the maximum number of rooms used at any time.
+    // Maximum number of rooms required at any time.
     int maxRooms = 0;
 
-    // Process every meeting one by one.
-    for (auto interval : intervals)
+    // ---------------------------------------------------------
+    // STEP 2: Process every meeting.
+    // ---------------------------------------------------------
+    for (int i = 0; i < intervals.size(); i++)
     {
-        int start = interval[0];
-        int end = interval[1];
+        int start = intervals[i][0];
+        int end = intervals[i][1];
 
         // -----------------------------------------------------
-        // STEP 2:
-        // Remove all meetings whose rooms are now free.
+        // STEP 3:
         //
-        // If the earliest ending meeting ends at or before
-        // the current meeting's start time, we can reuse
-        // that room.
+        // Remove meetings whose rooms are now free.
         //
-        // Example:
+        // If:
         //
-        // Current meeting: [15,20]
-        // Earliest ending meeting: 10
+        // earliest ending meeting <= current start
         //
-        // 10 <= 15
-        //
-        // So that room is free.
+        // then that room can be reused.
         // -----------------------------------------------------
         while (!minHeap.empty() && minHeap.top() <= start)
         {
@@ -66,18 +63,20 @@ int minMeetingRooms(vector<vector<int>> &intervals)
         }
 
         // -----------------------------------------------------
-        // STEP 3:
-        // Current meeting needs a room.
+        // STEP 4:
         //
-        // Store its ending time in the heap.
+        // Current meeting needs a room.
+        // Store its end time.
         // -----------------------------------------------------
         minHeap.push(end);
 
         // -----------------------------------------------------
-        // STEP 4:
-        // Heap size = number of rooms currently being used.
+        // STEP 5:
         //
-        // Keep track of the maximum number of rooms required.
+        // Number of elements in heap =
+        // number of rooms currently being used.
+        //
+        // Keep the maximum.
         // -----------------------------------------------------
         maxRooms = max(maxRooms, (int)minHeap.size());
     }

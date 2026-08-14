@@ -18,10 +18,12 @@ int maxSimultaneous(vector<vector<int>> &intervals)
 
     vector<pair<int, int>> events;
 
-    for (auto interval : intervals)
+    // Normal for loop instead of:
+    // for(auto interval : intervals)
+    for (int i = 0; i < intervals.size(); i++)
     {
-        int start = interval[0];
-        int end = interval[1];
+        int start = intervals[i][0];
+        int end = intervals[i][1];
 
         // Interval starts
         events.push_back({start, +1});
@@ -33,61 +35,55 @@ int maxSimultaneous(vector<vector<int>> &intervals)
     // ---------------------------------------------------------
     // STEP 1: Sort events by time.
     //
-    // Important:
+    // If two events happen at the same time:
     //
-    // If start and end happen at the SAME time,
-    // we process START first.
+    // +1 (start) comes BEFORE -1 (end)
     //
-    // Why?
-    //
-    // Problem says:
+    // This means we consider:
     //
     // [1,4] and [4,5]
     //
-    // are overlapping because they share point 4.
-    //
-    // Therefore at time 4:
-    //
-    // +1 must come before -1.
+    // as overlapping.
     // ---------------------------------------------------------
+
     sort(events.begin(), events.end(),
          [](const pair<int, int> &a,
             const pair<int, int> &b)
          {
-             // Different times:
-             // smaller time comes first.
+             // Different times
              if (a.first != b.first)
+             {
                  return a.first < b.first;
+             }
 
              // Same time:
-             // +1 (start) comes before -1 (end).
+             // +1 comes before -1
              return a.second > b.second;
          });
 
-    // Number of intervals currently active.
+    // Number of intervals currently active
     int active = 0;
 
-    // Maximum number of intervals active simultaneously.
+    // Maximum number of intervals active simultaneously
     int maximum = 0;
 
     // ---------------------------------------------------------
-    // STEP 2: Sweep through all events.
-    //
-    // +1 means an interval has started.
-    // -1 means an interval has ended.
+    // STEP 2: Sweep through all events
     // ---------------------------------------------------------
-    for (auto event : events)
-    {
-        int time = event.first;
-        int change = event.second;
 
-        // Update number of active intervals.
+    // Normal for loop
+    for (int i = 0; i < events.size(); i++)
+    {
+        int time = events[i].first;
+        int change = events[i].second;
+
+        // Update active intervals
         active += change;
 
-        // Keep the maximum number seen so far.
+        // Update maximum
         maximum = max(maximum, active);
 
-        // Optional: print the sweep process
+        // Print the sweep process
         cout << "Time: " << time
              << "  Change: " << change
              << "  Active: " << active << endl;
