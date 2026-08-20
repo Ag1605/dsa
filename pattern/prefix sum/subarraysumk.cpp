@@ -1,46 +1,111 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 class Solution {
 public:
+
+    // Function to count the number of subarrays
+    // whose sum is exactly equal to k.
     int subarraySum(vector<int>& nums, int k) {
 
-        unordered_map<int,int> f;
+        // unordered_map stores:
+        //
+        // prefix sum -> frequency
+        //
+        // Example:
+        // mp[5] = 2
+        //
+        // means prefix sum 5 has appeared 2 times.
+        unordered_map<int, int> mp;
 
-        f[0] = 1;
 
+        // Prefix sum 0 has appeared once.
+        //
+        // Why?
+        // Before we process any element, the sum is 0.
+        //
+        // This is important for subarrays that start
+        // from index 0.
+        mp[0] = 1;
+
+
+        // 'sum' stores the prefix sum up to
+        // the current element.
         int sum = 0;
+
+        // 'count' stores the total number of
+        // subarrays whose sum is equal to k.
         int count = 0;
 
-        for(int i = 0; i < nums.size(); i++){
 
-            sum += nums[i];
+        // Traverse every element of the array.
+        for (int num : nums) {
 
-            int ques = sum - k;
+            // Add the current element to the prefix sum.
+            sum += num;
 
-            count += f[ques];
 
-            f[sum]++;
+            // We want a subarray with sum = k.
+            //
+            // Suppose:
+            //
+            // current prefix sum = sum
+            //
+            // We have an earlier prefix sum = previousSum.
+            //
+            // Sum of subarray between them:
+            //
+            // sum - previousSum = k
+            //
+            // Therefore:
+            //
+            // previousSum = sum - k
+            //
+            // So we check whether sum - k
+            // already exists in the map.
+            if (mp.find(sum - k) != mp.end()) {
+
+                // Add its frequency to count.
+                //
+                // If sum-k appeared 3 times,
+                // then there are 3 different subarrays
+                // ending at the current position whose sum
+                // is k.
+                count += mp[sum - k];
+            }
+
+
+            // Store the current prefix sum.
+            //
+            // If it already exists, its frequency
+            // is increased by 1.
+            mp[sum]++;
         }
 
+
+        // Return the total number of valid subarrays.
         return count;
     }
 };
 
+
 int main() {
 
-    vector<int> nums = {3,4,7,2,-3,1,4,2};
+    // Example input.
+    vector<int> nums = {1, 1, 1};
 
-    int k = 7;
+    // Target sum.
+    int k = 2;
 
+    // Create an object of Solution class.
     Solution obj;
 
-    int ans = obj.subarraySum(nums, k);
+    // Find the number of subarrays
+    // whose sum is equal to k.
+    int answer = obj.subarraySum(nums, k);
 
-    cout << "Total subarrays with sum " << k << " = " << ans;
+    // Print the answer.
+    cout << "Number of subarrays = " << answer << endl;
 
     return 0;
 }
