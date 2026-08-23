@@ -92,7 +92,25 @@ public:
 
 
 int main() {
+/*  another way  class Solution {
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        vector<int> freq(nums.size() + 1, 0);
+        vector<int> ans;
 
+        for(int i = 0; i < nums.size(); i++) {
+            freq[nums[i]]++;
+        }
+
+        for(int i = 1; i < freq.size(); i++) {
+            if(freq[i] == 0) {
+                ans.push_back(i);
+            }
+        }
+
+        return ans;
+    }
+};*/
     // Example input
     vector<int> nums = {4, 3, 2, 7, 8, 2, 3, 1};
 
