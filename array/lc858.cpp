@@ -10,6 +10,20 @@ public:
     int mirrorReflection(int p, int q) {
 
         // ---------------------------------------------------------
+        /*   int a = p;
+        int b = q;
+
+        // Find GCD
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+
+        int gcd = a;
+
+        // LCM
+        int l = (p / gcd) * q;*/
         // STEP 1: Find LCM of p and q
         //
         // We are looking for the first point where:
