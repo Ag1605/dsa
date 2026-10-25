@@ -156,7 +156,7 @@ public:
 int getsize() {
         int sz = 0;
         Node* temp = head;
-        while (temp != NULL) {
+        while (temp != NULL) { 
             sz++;
             temp = temp->next;
         }
