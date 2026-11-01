@@ -4,18 +4,21 @@
 using namespace std;
 
 // Function to check whether we can reach the last index
-bool canJump(vector<int>& nums) {
+bool canJump(vector<int> &nums)
+{
 
     // Stores the farthest index we can reach so far
     int maxReach = 0;
 
     // Traverse the array from left to right
-    for (int i = 0; i < nums.size(); i++) {
+    for (int i = 0; i < nums.size(); i++)
+    {
 
         // If current index is greater than maxReach,
         // it means we cannot reach this index.
         // Therefore, reaching the last index is impossible.
-        if (i > maxReach) {
+        if (i > maxReach)
+        {
             return false;
         }
 
@@ -28,7 +31,8 @@ bool canJump(vector<int>& nums) {
 
         // If maxReach reaches or crosses the last index,
         // we have successfully reached our destination.
-        if (maxReach >= nums.size() - 1) {
+        if (maxReach >= nums.size() - 1)
+        {
             return true;
         }
     }
@@ -37,19 +41,22 @@ bool canJump(vector<int>& nums) {
     return true;
 }
 
-int main() {
+int main()
+{
 
     // Example input
     vector<int> nums = {2, 3, 1, 1, 4};
 
-    // Call the function
+    // Call the function jkhbj
     bool result = canJump(nums);
 
     // Print the result
-    if (result) {
+    if (result)
+    {
         cout << "true" << endl;
     }
-    else {
+    else
+    {
         cout << "false" << endl;
     }
 
