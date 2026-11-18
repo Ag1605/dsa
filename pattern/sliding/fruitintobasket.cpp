@@ -1,49 +1,55 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <unordered_map>
 using namespace std;
 
-class Solution {
+class Solution
+{
 public:
-    int totalFruit(vector<int>& fruits) {
-        int low = 0, high = 0;
-        int res = 0;   // ✅ better initialization
-        unordered_map<int,int> f;
-        int n = fruits.size();
+    int totalFruit(vector<int>& fruits)
+    {
+        // Stores fruit type and its frequency inside the window
+        unordered_map<int, int> mp;
 
-        for(high = 0; high < n; high++){
-            f[fruits[high]]++;
+        int left = 0;
+        int ans = 0;
 
-            while(f.size() > 2){
-                f[fruits[low]]--;
-                if(f[fruits[low]] == 0){
-                    f.erase(fruits[low]);
+        // right expands the window
+        for (int right = 0; right < fruits.size(); right++)
+        {
+            // Include the current fruit in our window
+            mp[fruits[right]]++;
+
+            // If we have more than 2 different fruit types,
+            // shrink the window from the left
+            while (mp.size() > 2)
+            {
+                mp[fruits[left]]--;
+
+                // If frequency becomes zero, remove that fruit type
+                if (mp[fruits[left]] == 0)
+                {
+                    mp.erase(fruits[left]);
                 }
-                low++;
+
+                left++;
             }
 
-            int len = high - low + 1;
-            res = max(res, len);
+            // Calculate the current valid window length
+            ans = max(ans, right - left + 1);
         }
 
-        return res;
+        return ans;
     }
 };
 
-int main() {
+int main()
+{
     Solution obj;
 
-    int n;
-    cout << "Enter number of fruits: ";
-    cin >> n;
+    vector<int> fruits = {1, 1, 2, 2, 2, 3, 3, 3, 3};
 
-    vector<int> fruits(n);
-    cout << "Enter fruit types: ";
-    for(int i = 0; i < n; i++){
-        cin >> fruits[i];
-    }
-
-    int result = obj.totalFruit(fruits);
-
-    cout << "Maximum fruits in baskets: " << result << endl;
+    cout << obj.totalFruit(fruits);
 
     return 0;
 }
