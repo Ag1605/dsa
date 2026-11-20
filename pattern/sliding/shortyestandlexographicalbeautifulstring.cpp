@@ -1,104 +1,97 @@
+
 #include <iostream>
 #include <string>
 using namespace std;
 
-class Solution {
+class Solution
+{
 public:
 
-    string shortestBeautifulSubstring(string s, int k) {
-
+    string shortestBeautifulSubstring(string s, int k)
+    {
         int n = s.size();
 
-        // left = starting point of our sliding window
+        // Left pointer represents starting position
+        // of the current sliding window.
         int left = 0;
 
-        // Stores how many '1's are currently inside the window
+        // Stores the number of ones in current window.
         int count1 = 0;
 
-        // Stores our best answer
+        // Stores the shortest and lexicographically
+        // smallest valid substring.
         string ans = "";
 
-        // right expands the window one character at a time
-        for (int right = 0; right < n; right++) {
-
+        // Move right pointer from left to right.
+        for (int right = 0; right < n; right++)
+        {
+            // STEP 1:
             // If current character is '1',
-            // increase the number of 1s in the window
-            if (s[right] == '1') {
+            // increase the count of ones.
+            if (s[right] == '1')
+            {
                 count1++;
             }
 
-            /*
-                Now the window [left ... right] contains exactly k ones.
+            // STEP 2:
+            // If we have exactly k ones,
+            // our current window is valid.
+            if (count1 == k)
+            {
+                // STEP 3:
+                // Remove all leading zeros.
+                // This makes our substring shorter.
+                while (s[left] == '0')
+                {
+                    left++;
+                }
 
-                We need to find the shortest substring containing
-                exactly k ones.
-
-                So we try to shrink the window from the left.
-            */
-            while (count1 == k) {
-
-                // Create the current substring
-                //
-                // Example:
-                // left = 2, right = 6
-                // substring = s[2 ... 6]
+                // STEP 4:
+                // Extract the current valid substring.
+                // Length = right - left + 1.
                 string curr = s.substr(left, right - left + 1);
 
-                /*
-                    Update answer if:
-
-                    1. We don't have an answer yet
-                       OR
-                    2. Current substring is shorter
-                       OR
-                    3. Both have same length but current substring
-                       is lexicographically smaller.
-                */
-
-                if (ans == "" || curr.size() < ans.size()) {
-
-                    ans = curr;
-                }
-                else if (curr.size() == ans.size() && curr < ans) {
-
+                // STEP 5:
+                // Update answer if:
+                // 1. No previous answer exists.
+                // 2. Current substring is shorter.
+                // 3. Both have same length but current
+                //    substring is lexicographically smaller.
+                if (ans == "" ||
+                    curr.size() < ans.size() ||
+                    (curr.size() == ans.size() && curr < ans))
+                {
                     ans = curr;
                 }
 
-                /*
-                    Now move left forward.
-
-                    Before moving left, check whether s[left]
-                    is '1'.
-
-                    If it is '1', removing it from the window
-                    decreases count1.
-                */
-                if (s[left] == '1') {
-                    count1--;
-                }
-
-                // Shrink the window from the left
+                // STEP 6:
+                // Remove the first '1' from the window.
+                // This allows us to search for the next
+                // valid substring.
                 left++;
+
+                // Since one '1' is removed,
+                // decrease count1.
+                count1--;
             }
         }
 
+        // Return the best substring found.
         return ans;
     }
 };
 
 
-int main() {
-
+int main()
+{
     Solution obj;
 
-    // Test case
     string s = "100011001";
     int k = 3;
 
-    // Call the function
+    // Find shortest beautiful substring.
     string answer = obj.shortestBeautifulSubstring(s, k);
 
-    // Print the answer
     cout << "Answer: " << answer << endl;
 
     return 0;
